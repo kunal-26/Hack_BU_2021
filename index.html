@@ -29,6 +29,125 @@
 <!-- Modernizer for Portfolio -->
 <script src="js/modernizer.js"></script>
 <!-- [if lt IE 9] -->
+    
+         *{
+            margin:0;
+        }
+        .chat_bot{
+            position: fixed;
+            bottom: 40px;
+            right: 10px;
+        }
+        .chat_space {
+            width: 300px;
+            height: 500px;
+            border-radius: 20px 20px 0px 0px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat_header {
+            background: linear-gradient(to right, #1d86df 0%, #39b49a 100%);
+            padding: 20px;
+            border-radius: 20px 20px 0px 0px;
+            font-size: 20px;
+            color: white;
+        }
+
+        .chat_body {
+            flex: 1;
+            overflow-y: scroll;
+            border-left: 1px solid rgb(168, 167, 167);
+            border-right: 1px solid rgb(168, 167, 167);
+        }
+
+        .chat_input_container {
+            display: flex;
+            border: 1px solid rgb(168, 167, 167);
+        }
+
+        .chat_input {
+            padding: 10px 10px 50px 10px;
+            flex: 1;
+            border: none;
+        }
+        .chat_input:focus{
+           outline:none;
+        }
+        .chat_input:focus::-webkit-input-placeholder {
+            color: rgb(168, 167, 167) ;
+        }
+
+        .user_message_container{
+            margin:5px 40px 5px 10px;
+        }
+        .user_message{
+            padding: 10px;
+            color:#fff;
+            /* border: 1px solid #1d86df; */
+            background-color:#1d86df;
+            border-radius: 15px 15px 15px 0px;
+        }
+        .bot_message_conatiner{
+            text-align:right;
+            margin: 5px 10px 5px 40px;
+        }
+        .bot_message{
+            padding: 10px;
+            color: #fff;
+            border: 1px solid #39b49a;
+            background-color:#39b49a;
+            border-radius: 15px 15px 0 15px;
+        }
+
+        .send_message{
+            margin: 10px 20px 0 0;
+            font-size:20px;
+            color:grey;
+            cursor: pointer;
+        }
+        .chat_robo_container{
+            text-align: right;
+        }
+        .fa-robot{
+            color: #1d86df;
+            font-size: 35px;
+            margin-right: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        #cross{
+            cursor: pointer;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: rgb(168, 167, 167);
+            border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgb(114, 112, 112);
+        }
+
+        ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+            color: rgb(114, 112, 112);
+            font-size:18px;
+        }
+    </style>
+
 </head>
 
 <body class="clinic_version">
@@ -37,6 +156,26 @@
         <img class="preloader" src="images/loaders/heart-loading2.gif" alt="">
     </div>
     <!-- END LOADER -->
+    <div class="chat_bot">
+    <div class="chat_space">
+        <i class="fas fa-times-circle" id="cross"></i>
+        <div class="chat_header">
+            Please Enter your Message<span>😊</span>
+        </div>
+        <div class="chat_body">
+            <!-- <div class="user_message_conatiner"><span class="user_message">Please Enter your Messag</span></div> -->
+            <div class="bot_message_conatiner"><p class="bot_message">Hi I am health plus bot</p></div>
+            <div class="bot_message_conatiner"><p class="bot_message"> How Can I help you?</p></div>
+        </div>
+        <div class="chat_input_container">
+            <input class="chat_input" placeholder="Enter your Message here" type="text" /><i class="fas fa-paper-plane send_message"></i>
+        </div>
+    </div>
+    <div class="chat_robo_container" id="chat_icon">
+        <i class="chat_robo fas fa-robot"></i>
+    </div>
+</div>
+        
     <header>
         <div class="header-top wow fadeIn">
             <div class="container">
@@ -632,6 +771,35 @@
     <script src="js/custom.js"></script>
     <!-- map -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNUPWkb4Cjd7Wxo-T4uoUldFjoiUA1fJc&callback=myMap"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        var ans1 = "Hi I am health plus I am Hear to help you";
+        var ans2 = "Hello";
+
+
+        $("#cross").click(function(){
+            $('.chat_space').toggle(500);
+        })
+        $('#chat_icon').click(function(){
+            $('.chat_space').toggle(500);
+        })
+        $('.send_message').click(function(){
+            var msg = $('.chat_input').val();
+            msg = msg.toLowerCase();
+            var reply="Sorry sir/mam I didn't understand";
+            var usermsg = `<div class="user_message_container"><p class="user_message">${msg}</p></div>`;
+            $('.chat_body').append(usermsg);
+            if(msg.includes("who are you")){
+                reply =ans1;
+            }else if(msg.includes("hi") || msg.includes("hello") || msg.includes("hlw")){
+                reply =ans2;
+            }
+            var botmsg = `<div class="bot_message_conatiner"><p class="bot_message">${reply}</p></div>`;
+            $('.chat_body').append(botmsg);
+            $('.chat_body').animate({scrollTop: $(document).height() + $('.chat_body').height()});
+            $('.chat_input').val("");
+        })
+    </script>
 </body>
 
 </html>
